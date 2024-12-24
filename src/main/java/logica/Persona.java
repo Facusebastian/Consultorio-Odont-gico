@@ -1,15 +1,23 @@
 package logica;
+import java.io.Serializable;
 import java.util.Date;
-public class Persona {
-   
+import javax.persistence.*;
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class Persona implements Serializable {
+    @Id
+    //con esta estraegia no persiste en la bd osea quiere decir que la clases hijas son entidades que se muestrane la bd
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String dni, nombre, apellido, telefono, direccion;
+    @Temporal(TemporalType.DATE)
     private Date fecha_nac;
 
     public Persona() {
     }
 
-    public Persona( String dni, String nombre, String apellido, String telefono, String direccion, Date fecha_nac) {
-    
+    public Persona(int id, String dni, String nombre, String apellido, String telefono, String direccion, Date fecha_nac) {
+        this.id = id;
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -17,6 +25,16 @@ public class Persona {
         this.direccion = direccion;
         this.fecha_nac = fecha_nac;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
 
   
 
